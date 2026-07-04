@@ -30,7 +30,7 @@
             background-color: var(--bg-page);
             color: var(--text-main);
             line-height: 1.6;
-            padding-bottom: 90px; /* Espacio para el botón flotante de IA */
+            padding-bottom: 110px; /* Espacio para el widget flotante de ElevenLabs */
         }
 
         .container {
@@ -257,118 +257,32 @@
             color: var(--text-muted);
         }
 
-        /* BOTÓN FLOTANTE DE IA (FAB) */
-        .fab-ai {
-            position: fixed;
-            bottom: 25px;
-            right: 25px;
-            background: var(--primary);
+        /* BANNER INFORMATIVO PARA INTERACCIÓN CON IA */
+        .ai-banner {
+            background: linear-gradient(135deg, var(--primary), #334155);
             color: #ffffff;
-            border: 2px solid var(--accent);
-            padding: 14px 22px;
-            border-radius: 50px;
-            font-size: 0.95rem;
-            font-weight: 700;
-            cursor: pointer;
-            box-shadow: 0 10px 25px rgba(216, 74, 56, 0.3);
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 30px;
             display: flex;
             align-items: center;
-            gap: 10px;
-            z-index: 1000;
-            transition: all 0.3s ease;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 15px;
+            border-left: 5px solid #10b981;
+            box-shadow: var(--shadow);
         }
 
-        .fab-ai:hover {
-            background: var(--accent);
-            border-color: #ffffff;
-            transform: scale(1.05);
+        .ai-banner-text h3 {
+            font-size: 1.1rem;
+            margin-bottom: 4px;
+            color: #ffffff;
         }
 
-        .pulse-dot {
-            width: 10px;
-            height: 10px;
-            background-color: #10b981;
-            border-radius: 50%;
-            box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7);
-            animation: pulse 1.5s infinite;
-        }
-
-        @keyframes pulse {
-            0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7); }
-            70% { transform: scale(1); box-shadow: 0 0 0 8px rgba(16, 185, 129, 0); }
-            100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
-        }
-
-        /* MODAL DE ELEVENLABS AMPLIADO PARA MODO VOZ + CHAT */
-        .modal-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(15, 23, 42, 0.8);
-            backdrop-filter: blur(5px);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 2000;
-            opacity: 0;
-            visibility: hidden;
-            transition: all 0.3s ease;
-            padding: 15px;
-        }
-
-        .modal-overlay.active {
-            opacity: 1;
-            visibility: visible;
-        }
-
-        .modal-card {
-            background: #ffffff;
-            width: 100%;
-            max-width: 500px;
-            border-radius: 16px;
-            padding: 25px 25px 35px 25px;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.25);
-            position: relative;
-            text-align: center;
-            border-top: 6px solid var(--accent);
-            display: flex;
-            flex-direction: column;
-        }
-
-        .modal-close {
-            position: absolute;
-            top: 12px;
-            right: 18px;
-            background: none;
-            border: none;
-            font-size: 1.6rem;
-            color: var(--text-muted);
-            cursor: pointer;
-            z-index: 10;
-        }
-
-        .modal-title {
-            font-size: 1.3rem;
-            color: var(--primary);
-            font-weight: 800;
-            margin-bottom: 6px;
-        }
-
-        .modal-subtitle {
-            font-size: 0.88rem;
-            color: var(--text-muted);
-            margin-bottom: 20px;
-        }
-
-        /* Contenedor ajustado en altura para el widget expuesto con teclado */
-        .widget-container {
-            width: 100%;
-            min-height: 520px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
+        .ai-banner-text p {
+            font-size: 0.9rem;
+            color: #cbd5e1;
+            margin: 0;
         }
 
         /* DISEÑO RESPONSIVO (Móviles) */
@@ -388,23 +302,6 @@
                 align-items: flex-start;
                 gap: 4px;
             }
-
-            .fab-ai {
-                bottom: 15px;
-                right: 15px;
-                padding: 12px 18px;
-                font-size: 0.85rem;
-            }
-
-            .modal-card {
-                padding: 20px 15px 25px 15px;
-                max-height: 90vh;
-                overflow-y: auto;
-            }
-            
-            .widget-container {
-                min-height: 480px;
-            }
         }
     </style>
 </head>
@@ -412,6 +309,14 @@
 
     <div class="container">
         
+        <!-- BANNER DE IA -->
+        <div class="ai-banner">
+            <div class="ai-banner-text">
+                <h3>🎙️ / 💬 Asistente Virtual Interactivo</h3>
+                <p>Hacé clic en el widget inferior derecho (<strong>Iniciar llamada / Start a call</strong>) para hablar en vivo con la IA de Mariela o escribirle por chat de texto.</p>
+            </div>
+        </div>
+
         <!-- ENCABEZADO / HERO -->
         <header class="hero-card">
             <div class="profile-img-container">
@@ -550,47 +455,8 @@
 
     </div>
 
-    <!-- BOTÓN FLOTANTE INFERIOR DERECHO (FAB) -->
-    <button class="fab-ai" onclick="openAIModal()">
-        <span class="pulse-dot"></span>
-        🎙️ / 💬 Hablar o Chatear con IA
-    </button>
+    <!-- WIDGET OFICIAL DE ELEVENLABS INTEGRADO NATIVAMENTE -->
+    <elevenlabs-convai agent-id="agent_1601kwqh5eqfepfrg3j56qh3vqtt"></elevenlabs-convai>
 
-    <!-- VENTANA MODAL PARA ELEVENLABS -->
-    <div class="modal-overlay" id="aiModal">
-        <div class="modal-card">
-            <button class="modal-close" onclick="closeAIModal()">×</button>
-            <div class="modal-title">Asistente Virtual de Mariela</div>
-            <p class="modal-subtitle">
-                Dialogá en vivo por <strong>voz</strong> o escribí por <strong>chat de texto</strong> abajo si no disponés de micrófono.
-            </p>
-            
-            <!-- CONTENEDOR DEL AGENTE DE ELEVENLABS -->
-            <div class="widget-container">
-                
-                <elevenlabs-convai agent-id="agent_1601kwqh5eqfepfrg3j56qh3vqtt"></elevenlabs-convai>
-
-            </div>
-        </div>
-    </div>
-
-    <!-- SCRIPT DE CONTROL PARA ABRIR Y CERRAR EL MODAL -->
-    <script>
-        function openAIModal() {
-            document.getElementById('aiModal').classList.add('active');
-        }
-
-        function closeAIModal() {
-            document.getElementById('aiModal').classList.remove('active');
-        }
-
-        // Cierra el modal si hacen clic afuera de la tarjeta blanca
-        window.onclick = function(event) {
-            const modal = document.getElementById('aiModal');
-            if (event.target === modal) {
-                closeAIModal();
-            }
-        }
-    </script>
 </body>
 </html>
